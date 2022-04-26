@@ -11,6 +11,8 @@ spring:
   cloud:
     nacos:
       server-addr: localhost:8848  # nacos服务地址
+      discovery:
+        cluster-name: HZ    # 配置集群名称，也就是机房的位置，HZ(杭州) SH(上海)
 mybatis:
   type-aliases-package: cn.itcast.user.pojo
   configuration:
@@ -24,9 +26,13 @@ logging:
 #  client:
 #    service-url:   # EurekaServer的地址，现在是自己的地址，如果是集群，需要加上其它Server的地址。
 #      defaultZone: http://127.0.0.1:10086/eureka          # 注册自己的地址信息，集群用
+#userserver:
+#  ribbon:     #配置指定微服务负载均衡为随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
 userserver:
-  ribbon:     #配置指定微服务负载均衡为随机
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+   ribbon:     #配置alibaba微服务负载均衡远程调用集群随机规则
+     NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
 
 ribbon:
   eager-load:
